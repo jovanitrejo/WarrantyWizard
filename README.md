@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # WarrantyWizard Backend
 
 AI-powered warranty management system for enterprises. Never lose money on expired warranties again.
@@ -23,7 +22,7 @@ AI-powered warranty management system for enterprises. Never lose money on expir
 ### 1. Clone the repository
 ```bash
 git clone <your-repo-url>
-cd warrantywizard-backend
+cd warrantywizard
 ```
 
 ### 2. Install dependencies
