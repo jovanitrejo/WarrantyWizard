@@ -1,4 +1,5 @@
 :root {
+<<<<<<< HEAD
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -6,6 +7,28 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
+=======
+  /* Grainger Brand Colors */
+  --grainger-red: #d32f2f;
+  --grainger-red-dark: #b71c1c;
+  --grainger-red-light: #ff6659;
+  --grainger-blue: #1976d2;
+  --grainger-blue-dark: #1565c0;
+  --grainger-gray: #424242;
+  --grainger-gray-light: #757575;
+  --grainger-bg: #fafafa;
+  
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  font-size: 16px; /* Base font size for accessibility */
+
+  color-scheme: light;
+  color: #212121;
+  background-color: #ffffff;
+>>>>>>> cc96240 (updates)
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -24,10 +47,17 @@ a:hover {
 
 body {
   margin: 0;
+<<<<<<< HEAD
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+=======
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--grainger-bg);
+  font-size: 16px; /* Ensure readable base font size */
+>>>>>>> cc96240 (updates)
 }
 
 h1 {

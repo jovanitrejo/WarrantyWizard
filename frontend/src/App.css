@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,4 +40,77 @@
 
 .read-the-docs {
   color: #888;
+=======
+.app {
+  min-height: 100vh;
+  background: var(--grainger-bg);
+}
+
+.app-nav {
+  background: white;
+  border-bottom: 3px solid var(--grainger-red);
+  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-height: 70px;
+}
+
+.nav-brand {
+  font-size: 1.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-brand a {
+  color: var(--grainger-red);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-brand::before {
+  content: '⚙️';
+  font-size: 1.5rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  padding: 14px 20px;
+  color: var(--grainger-gray);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-weight: 500;
+  font-size: 1rem;
+  min-height: 44px; /* Touch target size for accessibility */
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a:hover {
+  background: #fff5f5;
+  color: var(--grainger-red);
+}
+
+.nav-links a.active {
+  background: var(--grainger-red);
+  color: white;
+}
+
+.app-main {
+  min-height: calc(100vh - 70px);
+>>>>>>> cc96240 (updates)
 }

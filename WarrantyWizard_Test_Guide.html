@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WarrantyWizard - Test Guide & Documentation</title>
+    <style>
+        @page {
+            margin: 1in;
+        }
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+            page-break-after: avoid;
+        }
+        h2 {
+            color: #333;
+            margin-top: 30px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 5px;
+            page-break-after: avoid;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid #007bff;
+            page-break-inside: avoid;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .toc {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #e0e0e0;
+        }
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .toc li {
+            margin: 8px 0;
+        }
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            padding: 15px;
+            border-left: 4px solid #28a745;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .info {
+            background: #d1ecf1;
+            padding: 15px;
+            border-left: 4px solid #17a2b8;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        @media print {
+            body {
+                max-width: 100%;
+            }
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            pre, table {
+                page-break-inside: avoid;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #e0e0e0;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>WarrantyWizard - Test Guide & Documentation</h1>
+    
+    <div class="toc">
+        <h2>📋 Table of Contents</h2>
+        <ul>
+            <li><a href="#overview">Application Overview</a></li>
+            <li><a href="#quickstart">Quick Start</a></li>
+            <li><a href="#testdata">Test Data</a></li>
+            <li><a href="#api">API Endpoints</a></li>
+            <li><a href="#testing">Testing Scenarios</a></li>
+            <li><a href="#deployment">Deployment Guide</a></li>
+        </ul>
+    </div>
+
+    <h2 id="overview">🎯 Application Overview</h2>
+    <p><strong>WarrantyWizard</strong> is an AI-powered warranty management system that helps enterprises track, manage, and optimize equipment warranties.</p>
+    
+    <h3>Key Features</h3>
+    <ul>
+        <li>✅ <strong>Dashboard</strong> - Real-time overview of all warranties</li>
+        <li>✅ <strong>Equipment Database</strong> - Search and filter warranties</li>
+        <li>✅ <strong>Warranty Calendar</strong> - Visual timeline of expirations</li>
+        <li>✅ <strong>AI Chat Assistant</strong> - Natural language queries</li>
+        <li>✅ <strong>Upload Orders</strong> - CSV import or manual entry</li>
+        <li>✅ <strong>Reports & Analytics</strong> - Financial insights</li>
+        <li>✅ <strong>Alerts</strong> - Expiration notifications</li>
+        <li>✅ <strong>Settings</strong> - Customizable preferences</li>
+    </ul>
+
+    <h3>Tech Stack</h3>
+    <ul>
+        <li><strong>Frontend:</strong> React 19 + TypeScript + Vite</li>
+        <li><strong>Backend:</strong> Node.js + Express + TypeScript</li>
+        <li><strong>Storage:</strong> In-memory (demo) or PostgreSQL (production)</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="quickstart">🚀 Quick Start</h2>
+    
+    <h3>Prerequisites</h3>
+    <ul>
+        <li>Node.js 20.11+ installed</li>
+        <li>npm or yarn package manager</li>
+    </ul>
+
+    <h3>Installation Steps</h3>
+    
+    <h4>1. Install Backend Dependencies</h4>
+    <pre><code>cd backend
+npm install</code></pre>
+
+    <h4>2. Install Frontend Dependencies</h4>
+    <pre><code>cd frontend
+npm install</code></pre>
+
+    <h4>3. Start Backend Server</h4>
+    <pre><code>cd backend
+npm run dev</code></pre>
+    <p><strong>Backend runs on:</strong> <code>http://localhost:3001</code></p>
+
+    <h4>4. Start Frontend Server</h4>
+    <pre><code>cd frontend
+npm run dev</code></pre>
+    <p><strong>Frontend runs on:</strong> <code>http://localhost:5173</code></p>
+
+    <h4>5. Open in Browser</h4>
+    <p>Navigate to: <strong>http://localhost:5173</strong></p>
+
+    <hr>
+
+    <h2 id="testdata">📊 Test Data</h2>
+    <p>The application comes pre-loaded with <strong>20 sample warranties</strong> for testing.</p>
+
+    <h3>Sample Warranty Items</h3>
+
+    <h4>Expiring Soon (Next 30 Days)</h4>
+    
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Supplier</th>
+            <th>Cost</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>Toyota 8FGU25 Forklift</td>
+            <td>Material Handling</td>
+            <td>Grainger</td>
+            <td>$28,000</td>
+            <td>Expiring Soon (~10 days)</td>
+        </tr>
+        <tr>
+            <td>Carrier 50TC 10-Ton HVAC Unit</td>
+            <td>HVAC</td>
+            <td>Grainger</td>
+            <td>$12,500</td>
+            <td>Expiring Soon (~21 days)</td>
+        </tr>
+        <tr>
+            <td>Generac 150kW Diesel Generator</td>
+            <td>Power Generation</td>
+            <td>Grainger</td>
+            <td>$45,000</td>
+            <td>Expiring Soon (~29 days) *Has Claim</td>
+        </tr>
+    </table>
+
+    <h4>Expired Warranties</h4>
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Supplier</th>
+            <th>Cost</th>
+        </tr>
+        <tr>
+            <td>Ingersoll Rand Air Compressor (15HP)</td>
+            <td>Compressed Air</td>
+            <td>Fastenal</td>
+            <td>$8,900</td>
+        </tr>
+        <tr>
+            <td>Honeywell Barcode Scanner</td>
+            <td>IT/Devices</td>
+            <td>CDW</td>
+            <td>$399</td>
+        </tr>
+    </table>
+
+    <h4>Active Warranties</h4>
+    <p>15 additional items (Equipment Items 1-15) with various categories, suppliers, and expiration dates ranging from 60-165 days from today.</p>
+
+    <div class="info">
+        <h4>Data Statistics</h4>
+        <ul>
+            <li><strong>Total Warranties:</strong> 20</li>
+            <li><strong>Active:</strong> ~15</li>
+            <li><strong>Expiring Soon:</strong> 3</li>
+            <li><strong>Expired:</strong> 2</li>
+            <li><strong>Total Coverage Value:</strong> ~$110,174</li>
+            <li><strong>Claims Filed:</strong> 1</li>
+            <li><strong>Total Claim Amount:</strong> $3,200</li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <h2 id="api">🔌 API Endpoints</h2>
+
+    <h3>Health Check</h3>
+    <pre><code>GET /health
+Response: { "ok": true, "service": "warrantywizard-backend" }</code></pre>
+
+    <h3>Get All Warranties</h3>
+    <pre><code>GET /api/warranties
+Query Parameters:
+  - status: "active" | "expiring_soon" | "expired" (optional)
+  - q: search string (optional)
+
+Example: GET /api/warranties?status=active&q=forklift</code></pre>
+
+    <h3>Get Expiring Warranties</h3>
+    <pre><code>GET /api/warranties/expiring?days=30
+Response: { count, days, warranties: [...] }</code></pre>
+
+    <h3>Create Warranty</h3>
+    <pre><code>POST /api/warranties
+Body: {
+  "product_name": "Required",
+  "purchase_date": "YYYY-MM-DD",
+  "warranty_end": "YYYY-MM-DD",
+  "category": "Optional",
+  "serial_number": "Optional",
+  "supplier": "Optional",
+  "purchase_cost": 0
+}</code></pre>
+
+    <h3>Get Analytics</h3>
+    <pre><code>GET /api/analytics
+Response: {
+  totals: { total, active, expiring, expired },
+  claims: { filed, total_claim_amount },
+  estimated: { coverage_value }
+}</code></pre>
+
+    <h3>AI Chat</h3>
+    <pre><code>POST /api/ai-chat
+Body: { "message": "Which items expire next month?" }
+Response: { "reply": "...", "data": {...} }</code></pre>
+
+    <hr>
+
+    <h2 id="testing">🧪 Testing Scenarios</h2>
+
+    <h3>Scenario 1: View Dashboard</h3>
+    <ol>
+        <li>Open <code>http://localhost:5173</code></li>
+        <li>Verify you see:
+            <ul>
+                <li>4 main cards (Active, Expiring, Expired, Alerts)</li>
+                <li>Analytics section at bottom</li>
+                <li>Navigation bar at top</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h3>Scenario 2: Search Equipment</h3>
+    <ol>
+        <li>Click "Equipment" in navigation</li>
+        <li>Use search box to search for "Forklift"</li>
+        <li>Verify Toyota Forklift appears</li>
+        <li>Click on item to see details</li>
+    </ol>
+
+    <h3>Scenario 3: View Calendar</h3>
+    <ol>
+        <li>Click "Calendar" in navigation</li>
+        <li>Navigate through months</li>
+        <li>Click on dates with warranties</li>
+        <li>Verify warranty list appears</li>
+    </ol>
+
+    <h3>Scenario 4: Add New Warranty</h3>
+    <ol>
+        <li>Click "Add Warranty" button</li>
+        <li>Fill in form:
+            <ul>
+                <li>Product Name: "Test Equipment"</li>
+                <li>Purchase Date: Today's date</li>
+                <li>Warranty End: 1 year from today</li>
+                <li>Cost: $1000</li>
+            </ul>
+        </li>
+        <li>Submit form</li>
+        <li>Verify it appears in Equipment list</li>
+    </ol>
+
+    <h3>Scenario 5: Test AI Chat</h3>
+    <ol>
+        <li>Click "AI Chat" in navigation</li>
+        <li>Type: "Which items expire next month?"</li>
+        <li>Verify AI responds with list</li>
+        <li>Try: "How many active warranties do I have?"</li>
+    </ol>
+
+    <h3>Scenario 6: View Reports</h3>
+    <ol>
+        <li>Click "Reports" in navigation</li>
+        <li>Verify analytics display:
+            <ul>
+                <li>Key metrics</li>
+                <li>Financial overview</li>
+                <li>Category breakdown</li>
+                <li>Supplier breakdown</li>
+                <li>Status distribution</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h3>Scenario 7: Upload CSV</h3>
+    <ol>
+        <li>Click "Upload Orders" in navigation</li>
+        <li>Switch to "CSV Upload" tab</li>
+        <li>Create a CSV file with format:
+            <pre><code>product_name,category,serial_number,supplier,purchase_date,warranty_end,purchase_cost
+Test Item,IT/Devices,SN-9999,Grainger,2024-01-01,2025-01-01,500</code></pre>
+        </li>
+        <li>Upload and verify item appears</li>
+    </ol>
+
+    <h3>Scenario 8: View Alerts</h3>
+    <ol>
+        <li>Click "Alerts" in navigation</li>
+        <li>Verify expiring warranties listed</li>
+        <li>Verify expired warranties listed</li>
+        <li>Check days remaining countdown</li>
+    </ol>
+
+    <hr>
+
+    <h2 id="deployment">🌐 Deployment Guide</h2>
+
+    <h3>Frontend Deployment (Vercel)</h3>
+    <ol>
+        <li><strong>Install Vercel CLI</strong>
+            <pre><code>npm i -g vercel</code></pre>
+        </li>
+        <li><strong>Deploy</strong>
+            <pre><code>cd frontend
+vercel</code></pre>
+        </li>
+        <li><strong>Set Environment Variable</strong>
+            <ul>
+                <li>In Vercel dashboard, add: <code>VITE_API_URL=https://your-backend-url.com</code></li>
+            </ul>
+        </li>
+    </ol>
+
+    <h3>Backend Deployment (Railway)</h3>
+    <ol>
+        <li>Create Account at <a href="https://railway.app">railway.app</a></li>
+        <li>New Project → Deploy from GitHub</li>
+        <li>Select Repository and <code>backend</code> folder</li>
+        <li>Deploy - Railway auto-detects Node.js</li>
+    </ol>
+
+    <h3>Alternative: Render.com</h3>
+    <ol>
+        <li>Create Account at <a href="https://render.com">render.com</a></li>
+        <li>New Web Service</li>
+        <li>Connect GitHub repository</li>
+        <li>Settings:
+            <ul>
+                <li>Root Directory: <code>backend</code></li>
+                <li>Build Command: <code>npm install</code></li>
+                <li>Start Command: <code>npm start</code></li>
+            </ul>
+        </li>
+    </ol>
+
+    <hr>
+
+    <h2>📝 Test Checklist</h2>
+    <ul>
+        <li>☐ Backend server starts on port 3001</li>
+        <li>☐ Frontend server starts on port 5173</li>
+        <li>☐ Dashboard loads with 20 warranties</li>
+        <li>☐ Navigation works between pages</li>
+        <li>☐ Search functionality works</li>
+        <li>☐ Calendar displays warranties</li>
+        <li>☐ AI Chat responds to queries</li>
+        <li>☐ Can add new warranty</li>
+        <li>☐ Reports show correct analytics</li>
+        <li>☐ Alerts display correctly</li>
+        <li>☐ Settings page loads</li>
+    </ul>
+
+    <hr>
+
+    <h2>🔧 Troubleshooting</h2>
+
+    <h3>Issue: Blank Page</h3>
+    <div class="highlight">
+        <strong>Solution:</strong>
+        <ol>
+            <li>Check browser console (F12)</li>
+            <li>Verify backend is running: <code>curl http://localhost:3001/health</code></li>
+            <li>Check Network tab for failed requests</li>
+        </ol>
+    </div>
+
+    <h3>Issue: API Errors</h3>
+    <div class="highlight">
+        <strong>Solution:</strong>
+        <ol>
+            <li>Verify backend is running on port 3001</li>
+            <li>Check CORS settings</li>
+            <li>Verify API URL in <code>vite.config.ts</code></li>
+        </ol>
+    </div>
+
+    <h3>Issue: Data Not Showing</h3>
+    <div class="highlight">
+        <strong>Solution:</strong>
+        <ol>
+            <li>Check backend console for errors</li>
+            <li>Verify seed data loaded (should see 20 items)</li>
+            <li>Hard refresh browser (Cmd+Shift+R)</li>
+        </ol>
+    </div>
+
+    <hr>
+
+    <div class="success">
+        <h2>🎉 Ready to Test!</h2>
+        <p>Your WarrantyWizard application is ready for testing. Follow the scenarios above to verify all features work correctly.</p>
+        <p><strong>Happy Testing! 🚀</strong></p>
+    </div>
+
+    <hr>
+    <p style="text-align: center; color: #666; font-size: 0.9em;">
+        <em>WarrantyWizard Test Guide - Version 1.0.0</em><br>
+        <em>Generated for testing and documentation purposes</em>
+    </p>
+
+    <div class="no-print" style="margin-top: 40px; padding: 20px; background: #f0f8ff; border-radius: 5px;">
+        <h3>💡 How to Convert to PDF</h3>
+        <ol>
+            <li>Open this HTML file in your web browser</li>
+            <li>Press <strong>Cmd+P</strong> (Mac) or <strong>Ctrl+P</strong> (Windows)</li>
+            <li>Select "Save as PDF" as the destination</li>
+            <li>Click "Save"</li>
+        </ol>
+        <p><strong>Or</strong> use File → Print → Save as PDF</p>
+    </div>
+
+</body>
+</html>
+

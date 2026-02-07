@@ -1,0 +1,151 @@
+.ai-chat {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 120px);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.chat-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.chat-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 2.5rem;
+  color: var(--grainger-red);
+  font-weight: 700;
+}
+
+.chat-header p {
+  color: #666;
+  margin: 0;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message {
+  display: flex;
+  max-width: 80%;
+}
+
+.message-user {
+  align-self: flex-end;
+}
+
+.message-assistant {
+  align-self: flex-start;
+}
+
+.message-content {
+  padding: 14px 18px;
+  border-radius: 12px;
+  line-height: 1.6;
+  font-size: 1rem; /* Larger font for accessibility */
+  white-space: pre-wrap; /* Preserve line breaks from AI responses */
+}
+
+.message-user .message-content {
+  background: var(--grainger-red);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.message-assistant .message-content {
+  background: white;
+  color: #333;
+  border: 1px solid #e0e0e0;
+  border-bottom-left-radius: 4px;
+}
+
+.typing-indicator {
+  color: #666;
+  font-style: italic;
+}
+
+.chat-input-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 24px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.chat-input:focus {
+  border-color: var(--grainger-red);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+}
+
+.chat-send-btn {
+  padding: 12px 24px;
+  background: var(--grainger-red);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  min-height: 44px; /* Accessibility */
+}
+
+.chat-send-btn:hover:not(:disabled) {
+  background: var(--grainger-red-dark);
+}
+
+.chat-send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chat-suggestions {
+  text-align: center;
+}
+
+.chat-suggestions p {
+  color: #666;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.suggestion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.suggestion-chip {
+  padding: 8px 16px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.suggestion-chip:hover {
+  border-color: var(--grainger-red);
+  color: var(--grainger-red);
+  background: #fff5f5;
+}
+
