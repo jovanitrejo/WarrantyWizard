@@ -243,37 +243,6 @@ warrantywizard-backend/
 └── README.md
 ```
 
-## 🚢 Deployment
-
-### Deploy to Aedify (for hackathon bonus!)
-
-1. Create account on Aedify
-2. Connect your repository
-3. Set environment variables in Aedify dashboard
-4. Deploy!
-
-### Deploy to Render/Railway
-
-1. Connect GitHub repository
-2. Select Node.js environment
-3. Add environment variables
-4. Add PostgreSQL database
-5. Deploy
-
-## 🎯 Hackathon Tips
-
-**For maximum impact during demo:**
-
-1. **Show AI Chatbot First** - Most impressive feature
-2. **Demo Invoice Upload** - Shows AI + practical use
-3. **Display Analytics** - Show business value
-4. **Mention Accessibility** - Built with UX in mind
-
-**Quick Demo Script:**
-1. "Here's our dashboard with 20 enterprise equipment warranties"
-2. "Let's ask our AI: 'Which warranties are at risk?'"
-3. "Now I'll upload an invoice [show OCR extraction]"
-4. "Finally, here's the cost savings analytics"
 
 ## 📄 License
 
@@ -281,8 +250,10 @@ MIT
 
 ## 👥 Contributors
 
-[Your Team Name Here]
+Sailesh Senthilkumar
+Nathan Thokkudubiyyapu
+Jovani Trejo
 
 ---
 
-Built for [Hackathon Name] - Track 3: Shop Savvy with Grainger
+Track 3: Shop Savvy with Grainger
