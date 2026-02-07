@@ -355,11 +355,3 @@ PORT=3001
 6. View calendar for visual timeline
 7. Check reports for analytics
 
-## 📝 License
-
-MIT
-
----
-
-Built with ❤️ for efficient warranty management
->>>>>>> cc96240 (updates)
