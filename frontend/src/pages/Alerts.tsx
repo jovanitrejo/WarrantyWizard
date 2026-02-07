@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-export default function Alerts() {
-  return <h1>Alerts</h1>;
-=======
 import { useEffect, useState } from 'react';
 import { api, type Warranty } from '../services/api';
 import './Alerts.css';
@@ -114,5 +110,4 @@ export default function Alerts() {
       )}
     </div>
   );
->>>>>>> cc96240 (updates)
 }

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-export default function Dashboard() {
-  return <h1>WarrantyWizard Dashboard</h1>;
-=======
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api, type Warranty, type Analytics } from '../services/api';
@@ -183,5 +179,4 @@ export default function Dashboard() {
       )}
     </div>
   );
->>>>>>> cc96240 (updates)
 }

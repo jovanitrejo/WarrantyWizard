@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-export default function AddItem() {
-  return <h1>Add Item</h1>;
-=======
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
@@ -182,5 +178,4 @@ export default function AddItem() {
       </form>
     </div>
   );
->>>>>>> cc96240 (updates)
 }
