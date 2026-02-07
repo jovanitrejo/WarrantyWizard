@@ -250,8 +250,8 @@ MIT
 
 ## 👥 Contributors
 
-Sailesh Senthilkumar
-Nathan Thokkudubiyyapu
+Sailesh Senthilkumar, 
+Nathan Thokkudubiyyapu, 
 Jovani Trejo
 
 ---
