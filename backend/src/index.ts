@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import multer from "multer";
 import fs from "fs/promises";
+import { AIService } from "./aiService";
 
 // Lazy load pdf-parse only when needed (to avoid DOMMatrix error on startup)
 let pdfParse: any = null;
@@ -395,6 +396,49 @@ app.get("/health", (_req: Request, res: Response) => {
 });
 
 /**
+ * GET /api/ai/health
+ * Test OpenAI API connectivity
+ */
+app.get("/api/ai/health", async (_req: Request, res: Response) => {
+  try {
+    const hasApiKey = !!(process.env.OPENAI_KEY || process.env.OPENAI_API_KEY);
+    
+    if (!hasApiKey) {
+      return res.status(500).json({
+        ok: false,
+        error: "OpenAI API key not configured",
+        configured: false
+      });
+    }
+
+    // Try a simple test call
+    const testResponse = await AIService.chat("Hello, who are you?");
+    
+    if (testResponse.error) {
+      return res.status(500).json({
+        ok: false,
+        error: testResponse.error,
+        configured: true,
+        details: (testResponse as any).errorType
+      });
+    }
+
+    return res.json({
+      ok: true,
+      configured: true,
+      service: "OpenAI API",
+      model: "gpt-4o-mini"
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      ok: false,
+      error: error.message,
+      configured: !!(process.env.OPENAI_KEY || process.env.OPENAI_API_KEY)
+    });
+  }
+});
+
+/**
  * GET /api/warranties
  * Optional query params:
  *  - status=active|expiring_soon|expired
@@ -552,14 +596,84 @@ app.get("/api/analytics", (_req: Request, res: Response) => {
  *  - message: string
  *  - conversationHistory?: ChatMessage[]
  */
-app.post("/api/ai-chat", (req: Request, res: Response) => {
-  refreshStatuses(30);
+app.post("/api/ai-chat", async (req: Request, res: Response) => {
+  try {
+    refreshStatuses(30);
 
-  const message = String(req.body?.message ?? "").trim();
-  if (!message) return res.status(400).json({ error: "message is required" });
+    const message = String(req.body?.message ?? "").trim();
+    if (!message) return res.status(400).json({ error: "message is required" });
 
+    // Get warranty context for the AI
+    const now = new Date();
+    const active = warranties.filter((w) => w.status === "active");
+    const expiring = warranties.filter((w) => w.status === "expiring_soon");
+    const expired = warranties.filter((w) => w.status === "expired");
+    const totalValue = warranties.reduce((sum, w) => sum + (w.purchase_cost || 0), 0);
+
+    // Build context about warranties for AI
+    const warrantyContext = `
+Current Warranty Summary:
+- Total Warranties: ${warranties.length}
+- Active: ${active.length}
+- Expiring Soon: ${expiring.length}
+- Expired: ${expired.length}
+- Total Coverage Value: $${totalValue.toLocaleString()}
+
+Expiring Soon Items (next 30 days):
+${expiring.slice(0, 10).map(w => `- ${w.product_name} (${w.warranty_end})`).join('\n')}
+
+User Question: ${message}
+`;
+
+    // Call OpenAI API for intelligent responses
+    const aiResponse = await AIService.chat(message, [
+      {
+        role: "system",
+        content: `You are WarrantyWizard, an AI assistant helping enterprises manage warranties. 
+        
+${warrantyContext}
+
+Provide helpful, concise answers about warranty management. Use the warranty data provided to give specific insights.`
+      }
+    ]);
+
+    if (aiResponse.error) {
+      // Log the error for debugging
+      console.warn('OpenAI API Error:', {
+        error: aiResponse.error,
+        errorType: (aiResponse as any).errorType,
+        apiKeyConfigured: !!process.env.OPENAI_KEY || !!process.env.OPENAI_API_KEY
+      });
+      
+      // Check if it's a configuration error
+      if (!process.env.OPENAI_KEY && !process.env.OPENAI_API_KEY) {
+        return res.status(500).json({
+          error: "OpenAI API key not configured. Please set OPENAI_KEY or OPENAI_API_KEY environment variable.",
+          reply: "Configuration error: AI service is not properly set up."
+        });
+      }
+      
+      // Fallback to rule-based if OpenAI fails
+      console.warn("OpenAI API failed, falling back to rule-based responses");
+      return handleRuleBasedChat(req, res, message, warranties, now);
+    }
+
+    return res.json({
+      reply: aiResponse.reply,
+      usage: aiResponse.usage
+    });
+  } catch (error: any) {
+    console.error("Chat endpoint error:", error);
+    res.status(500).json({
+      error: "Failed to process chat request",
+      details: error.message
+    });
+  }
+});
+
+// Rule-based chatbot fallback (when OpenAI is unavailable)
+function handleRuleBasedChat(req: Request, res: Response, message: string, warranties: Warranty[], now: Date) {
   const msgLower = message.toLowerCase();
-  const now = new Date();
   const active = warranties.filter((w) => w.status === "active");
   const expiring = warranties.filter((w) => w.status === "expiring_soon");
   const expired = warranties.filter((w) => w.status === "expired");
@@ -709,7 +823,7 @@ app.post("/api/ai-chat", (req: Request, res: Response) => {
       `- "Show me cost savings"\n\n` +
       `💡 Try asking me anything about your warranties!`,
   });
-});
+}
 
 // Helper functions for PDF text extraction
 function extractField(text: string, keywords: string[]): string | undefined {
@@ -933,6 +1047,8 @@ app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`✅ WarrantyWizard backend running on http://localhost:${port}`);
   console.log(`📊 API Endpoints:`);
+  console.log(`   GET  http://localhost:${port}/health`);
+  console.log(`   GET  http://localhost:${port}/api/ai/health (test OpenAI)`);
   console.log(`   GET  http://localhost:${port}/api/warranties`);
   console.log(`   GET  http://localhost:${port}/api/analytics`);
   console.log(`   GET  http://localhost:${port}/api/warranties/expiring`);
