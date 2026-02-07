@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # WarrantyWizard Backend
 
 AI-powered warranty management system for enterprises. Never lose money on expired warranties again.
@@ -257,3 +258,108 @@ Jovani Trejo
 ---
 
 Track 3: Shop Savvy with Grainger
+=======
+# WarrantyWizard - AI-Powered Warranty Management System
+
+Never lose money on expired warranties again. Track, manage, and optimize your equipment warranties with AI-powered insights.
+
+## 🚀 Features
+
+- **📊 Dashboard** - Comprehensive overview of all warranties
+- **🔍 Equipment Database** - Search, filter, and manage warranties
+- **📅 Warranty Calendar** - Visual timeline of expirations
+- **🤖 AI Chat Assistant** - Natural language queries about warranties
+- **📤 Upload Orders** - CSV import or manual entry
+- **📈 Reports & Analytics** - Financial insights and statistics
+- **⚠️ Alerts** - Never miss an expiration
+- **⚙️ Settings** - Customize alerts and team management
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React 19 + TypeScript + Vite
+- **Backend**: Node.js + Express + TypeScript
+- **Styling**: CSS3 with modern design
+
+## 📦 Installation
+
+### Prerequisites
+- Node.js 20.11+ 
+- npm or yarn
+
+### Setup
+
+1. **Install Backend Dependencies**
+```bash
+cd backend
+npm install
+```
+
+2. **Install Frontend Dependencies**
+```bash
+cd frontend
+npm install
+```
+
+3. **Start Backend Server**
+```bash
+cd backend
+npm run dev
+```
+Backend runs on `http://localhost:3001`
+
+4. **Start Frontend Server**
+```bash
+cd frontend
+npm run dev
+```
+Frontend runs on `http://localhost:5173`
+
+## 🌐 Deployment
+
+### Build for Production
+
+1. **Build Frontend**
+```bash
+cd frontend
+npm run build
+```
+
+2. **Deploy**
+- Frontend: Deploy the `dist` folder to any static hosting (Vercel, Netlify, etc.)
+- Backend: Deploy to any Node.js hosting (Railway, Render, etc.)
+
+### Environment Variables
+
+**Backend** (`.env`):
+```
+PORT=3001
+```
+
+**Frontend**: Update `vite.config.ts` proxy target for production API URL.
+
+## 📡 API Endpoints
+
+- `GET /api/warranties` - Get all warranties
+- `GET /api/warranties/expiring?days=30` - Get expiring warranties
+- `GET /api/analytics` - Get analytics
+- `POST /api/warranties` - Create warranty
+- `POST /api/ai-chat` - AI chat assistant
+
+## 🎯 Usage
+
+1. Open `http://localhost:5173` in your browser
+2. View the dashboard with warranty overview
+3. Navigate through different sections using the top menu
+4. Add warranties manually or upload CSV files
+5. Use AI chat to ask questions about warranties
+6. View calendar for visual timeline
+7. Check reports for analytics
+
+## 📝 License
+
+MIT
+
+---
+
+Built with ❤️ for efficient warranty management
+>>>>>>> cc96240 (updates)

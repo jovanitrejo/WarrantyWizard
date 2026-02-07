@@ -1,0 +1,147 @@
+.alerts {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.alerts-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.alerts-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 2.5rem;
+  color: var(--grainger-red);
+  font-weight: 700;
+}
+
+.alerts-header p {
+  color: #666;
+  margin: 0;
+}
+
+.no-alerts {
+  text-align: center;
+  padding: 64px 24px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.no-alerts-icon {
+  font-size: 4rem;
+  color: #28a745;
+  margin-bottom: 16px;
+}
+
+.no-alerts h2 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.no-alerts p {
+  color: #666;
+  margin: 0;
+}
+
+.alert-section {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.alert-section h2 {
+  margin: 0 0 20px 0;
+  font-size: 1.5rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.alert-icon {
+  font-size: 1.5rem;
+}
+
+.alert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.alert-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid;
+  transition: all 0.2s;
+}
+
+.alert-item.warning {
+  background: #fff3cd;
+  border-left-color: #ffc107;
+}
+
+.alert-item.error {
+  background: #f8d7da;
+  border-left-color: #dc3545;
+}
+
+.alert-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alert-item-main {
+  flex: 1;
+}
+
+.alert-item-main h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.alert-item-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.alert-item-date {
+  text-align: right;
+  min-width: 150px;
+}
+
+.date-label {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.date-value {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.days-remaining {
+  font-size: 0.85rem;
+  color: #856404;
+  font-weight: 500;
+}
+
+.alerts-loading {
+  text-align: center;
+  padding: 48px;
+  font-size: 1.2rem;
+  color: #666;
+}
+

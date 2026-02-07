@@ -1,0 +1,238 @@
+.equipment-database {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.equipment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.equipment-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  color: var(--grainger-red);
+  font-weight: 700;
+}
+
+.equipment-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  min-width: 300px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.filter-select {
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  outline: none;
+}
+
+.filter-select:focus {
+  border-color: #007bff;
+}
+
+.equipment-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 24px;
+}
+
+.equipment-list {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.list-header {
+  padding: 16px;
+  background: #f9f9f9;
+  border-bottom: 1px solid #e0e0e0;
+  font-weight: 500;
+  color: #666;
+}
+
+.equipment-item {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equipment-item:hover {
+  background: #f9f9f9;
+}
+
+.equipment-item.selected {
+  background: #e7f3ff;
+  border-left: 4px solid #007bff;
+}
+
+.equipment-item:last-child {
+  border-bottom: none;
+}
+
+.item-main {
+  flex: 1;
+}
+
+.item-main h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.item-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.badge {
+  background: #e9ecef;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.item-status {
+  text-align: right;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-expiring_soon {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-expired {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.item-date {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.equipment-details {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 24px;
+  position: sticky;
+  top: 24px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+
+.close-btn {
+  float: right;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.equipment-details h2 {
+  margin: 0 0 24px 0;
+  font-size: 1.5rem;
+  color: #333;
+  clear: both;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.detail-item label {
+  font-weight: 500;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.detail-item span {
+  color: #333;
+}
+
+.equipment-loading {
+  text-align: center;
+  padding: 48px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+@media (max-width: 1024px) {
+  .equipment-content {
+    grid-template-columns: 1fr;
+  }
+
+  .equipment-details {
+    position: static;
+    max-height: none;
+  }
+}
+
