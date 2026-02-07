@@ -6,16 +6,16 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 // Import routes
-import warrantyRoutes from './routes/warrantyRoutes.js';
-import aiRoutes from './routes/aiRoutes.js';
-import uploadRoutes from './routes/uploadRoutes.js';
+import warrantyRoutes from './src/routes/warrantyRoutes.js';
+import aiRoutes from './src/routes/aiRoutes.js';
+import uploadRoutes from './src/routes/uploadRoutes.js';
 
 // Import middleware
-import { errorHandler, notFound } from './middleware/errorHandler.js';
+import { errorHandler, notFound } from './src/middleware/errorHandler.js';
 
 // Import config
-import pool from './config/database.js';
-import { createTables } from './config/schema.js';
+import pool from './src/config/database.js';
+import { createTables } from './src/config/schema.js';
 
 // Load environment variables
 dotenv.config();
@@ -28,16 +28,30 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
+const allowedOrigins = (
+  process.env.FRONTEND_URLS ||
+  process.env.FRONTEND_URL ||
+  'http://localhost:3000,http://localhost:5173'
+)
+  .split(',')
+  .map(s => s.trim());
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-  credentials: true
+  origin: (origin, callback) => {
+    // allow server-to-server, curl, Postman (no origin)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error(`CORS blocked for origin: ${origin}`));
+  },
+  credentials: true,
 }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.options('*', cors());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Create uploads directory if it doesn't exist
-const uploadsDir = path.join(__dirname, '..', 'uploads');
+const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
@@ -52,17 +66,25 @@ app.get('/', (req, res) => {
     message: 'WarrantyWizard API',
     version: '1.0.0',
     endpoints: {
-      warranties: '/api/warranties',
-      ai: '/api/ai',
-      upload: '/api/upload'
+      warranties: '/api/v1/warranties',
+      ai: '/api/v1/ai',
+      upload: '/api/v1/upload'
     }
   });
 });
 
+
+app.get('/api', (req, res) => {
+  res.json({ ok: true });
+});
+
+
 // API Routes
-app.use('/api/warranties', warrantyRoutes);
-app.use('/api/ai', aiRoutes);
-app.use('/api/upload', uploadRoutes);
+const API_PREFIX = '/api/v1';
+app.use(`${API_PREFIX}/warranties`, warrantyRoutes);
+app.use(`${API_PREFIX}/ai`, aiRoutes);
+app.use(`${API_PREFIX}/upload`, uploadRoutes);
+
 
 // Health check
 app.get('/health', async (req, res) => {
@@ -107,7 +129,7 @@ const startServer = async () => {
       console.log(`   - GET    /api/warranties/analytics`);
       console.log(`   - POST   /api/ai/chat`);
       console.log(`   - POST   /api/upload/invoice`);
-      console.log(`\n🤖 AI Features:`);
+      console.log(`\n AI Features:`);
       console.log(`   - Chatbot Assistant`);
       console.log(`   - Invoice OCR & Extraction`);
       console.log(`   - Predictive Insights`);

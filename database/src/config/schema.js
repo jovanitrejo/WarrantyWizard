@@ -88,10 +88,10 @@ const createTables = async () => {
     `);
 
     await client.query('COMMIT');
-    console.log('✅ Database tables created successfully');
+    console.log('Database tables created successfully');
   } catch (error) {
     await client.query('ROLLBACK');
-    console.error('❌ Error creating tables:', error);
+    console.error('Error creating tables:', error);
     throw error;
   } finally {
     client.release();
@@ -109,10 +109,10 @@ const dropTables = async () => {
     await client.query('DROP TABLE IF EXISTS alerts CASCADE');
     await client.query('DROP TABLE IF EXISTS warranties CASCADE');
     await client.query('COMMIT');
-    console.log('✅ Database tables dropped successfully');
+    console.log('Database tables dropped successfully');
   } catch (error) {
     await client.query('ROLLBACK');
-    console.error('❌ Error dropping tables:', error);
+    console.error('Error dropping tables:', error);
     throw error;
   } finally {
     client.release();
