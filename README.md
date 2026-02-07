@@ -1,36 +1,149 @@
-# WarrantyWizard Backend
+# WarrantyWizard - AI-Powered Warranty Management System
 
-AI-powered warranty management system for enterprises. Never lose money on expired warranties again.
+**Never lose money on expired warranties again.** Track, manage, and optimize your equipment warranties with AI-powered insights.
 
-## 🚀 Features
+Built for **Track 3: Shop Savvy with Grainger**
 
-- **Warranty Management**: Track all equipment warranties in one place
-- **AI Chatbot**: Natural language queries about warranties
-- **Invoice OCR**: Upload invoices and auto-extract warranty info
-- **Predictive Insights**: AI-powered risk assessment for warranties
-- **Expiration Alerts**: Never miss a warranty deadline
-- **Analytics Dashboard**: Comprehensive warranty analytics
+---
 
-## 📋 Prerequisites
+## Overview
 
-- Node.js (v18 or higher)
-- PostgreSQL (v14 or higher)
-- OpenAI API key (for AI features)
+WarrantyWizard is a comprehensive warranty management system designed for enterprises. It helps businesses track equipment warranties, receive proactive alerts, and leverage AI to maximize warranty benefits - preventing the millions of dollars lost annually to expired warranties.
 
-## 🛠️ Installation
+### Key Highlights
+- **AI-Powered**: GPT-4 integration for natural language queries and intelligent invoice extraction
+- **Real-Time Analytics**: Comprehensive dashboard with financial insights
+- **Proactive Alerts**: Never miss a warranty expiration
+- **Zero Manual Entry**: AI extracts warranty data from PDF invoices automatically
+- **Predictive Analytics**: Risk assessment to prevent warranty losses
+- **Accessible Design**: Built for users of all ages and technical levels
 
-### 1. Clone the repository
+---
+
+## Features
+
+### Core Features
+- **Dashboard** - Real-time overview of all warranties with statistics
+- **Equipment Database** - Search, filter, and manage warranties
+- **Warranty Calendar** - Visual timeline of warranty expirations
+- **AI Chat Assistant** - Natural language queries about warranties
+- **Upload Orders** - CSV import, PDF upload, or manual entry
+- **Reports & Analytics** - Financial insights and predictive analytics
+- **Alerts** - Automatic notifications for expiring warranties
+- **Settings** - Customize alerts and team management
+
+### AI Features
+- **Natural Language Chat** - Ask questions in plain English
+- **Intelligent PDF Extraction** - Automatically extract warranty data from invoices
+- **Predictive Risk Scoring** - Identify equipment at risk before warranty expires
+- **Smart Recommendations** - AI-powered maintenance suggestions
+
+---
+
+## Architecture
+
+### Tech Stack
+
+**Frontend:**
+- React 19 + TypeScript
+- Vite (build tool)
+- React Router (navigation)
+- Axios (API calls)
+- Recharts (data visualization)
+- CSS3 (styling)
+
+**Backend:**
+- Node.js + Express
+- TypeScript
+- In-memory storage (demo) or PostgreSQL (production)
+- Multer (file uploads)
+- pdf-parse (PDF text extraction)
+- OpenAI API (GPT-4 integration)
+
+**Database (Optional):**
+- PostgreSQL 14+
+- Full CRUD operations
+- Optimized queries
+
+---
+
+## Prerequisites
+
+- **Node.js** 20.11+ ([Download](https://nodejs.org/))
+- **npm** or **yarn** package manager
+- **PostgreSQL** 14+ (optional, for production database)
+- **OpenAI API Key** (for AI features) - [Get one here](https://platform.openai.com/api-keys)
+
+---
+
+## Installation & Setup
+
+### Quick Start (In-Memory Storage - Demo Mode)
+
+This setup uses in-memory storage and is perfect for quick demos and testing.
+
+#### 1. Clone the Repository
 ```bash
 git clone <your-repo-url>
-cd warrantywizard
+cd WarrantyWizard-main
 ```
 
-### 2. Install dependencies
+#### 2. Install Backend Dependencies
 ```bash
+cd backend
 npm install
 ```
 
-### 3. Set up PostgreSQL database
+#### 3. Install Frontend Dependencies
+```bash
+cd ../frontend
+npm install
+```
+
+#### 4. Configure Environment Variables
+
+**Backend** (`backend/.env`):
+```bash
+cd ../backend
+# Create .env file
+touch .env
+```
+
+Add to `backend/.env`:
+```env
+PORT=3001
+OPENAI_API_KEY=your-openai-api-key-here
+```
+
+**Note**: The backend includes 12 sample warranties by default (no database setup needed for demo mode).
+
+#### 5. Start the Application
+
+**Terminal 1 - Backend:**
+```bash
+cd backend
+npm run dev
+```
+Backend will run on `http://localhost:3001`
+
+**Terminal 2 - Frontend:**
+```bash
+cd frontend
+npm run dev
+```
+Frontend will run on `http://localhost:5173`
+
+#### 6. Open in Browser
+Navigate to: **http://localhost:5173**
+
+---
+
+### Full Setup (With PostgreSQL Database)
+
+For production use with persistent data storage.
+
+#### 1. Set Up PostgreSQL Database
+
 ```bash
 # Login to PostgreSQL
 psql -U postgres
@@ -42,85 +155,83 @@ CREATE DATABASE warrantywizard;
 \q
 ```
 
-### 4. Configure environment variables
-```bash
-# Copy example env file
-cp .env.example .env
+#### 2. Configure Database Backend
 
-# Edit .env and add your credentials
-nano .env
+If using the `database/` folder backend:
+
+```bash
+cd database
+npm install
 ```
 
-**Required environment variables:**
-- `DB_USER`: Your PostgreSQL username
-- `DB_PASSWORD`: Your PostgreSQL password
-- `OPENAI_API_KEY`: Your OpenAI API key
+Create `database/.env`:
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=your-password
+DB_NAME=warrantywizard
+OPENAI_API_KEY=your-openai-api-key-here
+PORT=3001
+```
 
-### 5. Initialize database
+#### 3. Initialize Database
 ```bash
+cd database
 npm run seed
 ```
 
-This will:
-- Create all necessary tables
-- Populate database with 20 sample warranties
-- Display database summary
-
-### 6. Start the server
+#### 4. Start Database Backend
 ```bash
-# Development mode (with auto-reload)
 npm run dev
-
-# Production mode
-npm start
 ```
 
-Server will start on `http://localhost:5000`
+#### 5. Update Frontend Configuration
 
-## 📡 API Endpoints
+Update `frontend/vite.config.ts` to point to the database backend:
+```typescript
+proxy: {
+  "/api": {
+    target: "http://localhost:3001", // Database backend
+    changeOrigin: true,
+  },
+}
+```
+
+---
+
+## API Endpoints
 
 ### Warranties
 
-```
-GET    /api/warranties              Get all warranties (with filters)
-GET    /api/warranties/:id          Get single warranty
-POST   /api/warranties              Create new warranty
-PUT    /api/warranties/:id          Update warranty
-DELETE /api/warranties/:id          Delete warranty
-GET    /api/warranties/analytics    Get analytics/statistics
-GET    /api/warranties/expiring/soon  Get expiring warranties
-GET    /api/warranties/expired      Get expired warranties
-POST   /api/warranties/:id/claim    File a warranty claim
-POST   /api/warranties/:id/insights Generate AI insights
-```
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/warranties` | Get all warranties (with optional filters) |
+| `GET` | `/api/warranties/expiring?days=30` | Get warranties expiring soon |
+| `GET` | `/api/analytics` | Get analytics and statistics |
+| `POST` | `/api/warranties` | Create new warranty |
+| `DELETE` | `/api/warranties/:id` | Delete warranty |
 
 ### AI Features
 
-```
-POST   /api/ai/chat                 Chat with AI assistant
-POST   /api/ai/extract-invoice      Extract warranty from invoice text
-GET    /api/ai/chat/history/:session_id  Get chat history
-DELETE /api/ai/chat/history/:session_id  Clear chat history
-```
-
-### File Upload
-
-```
-POST   /api/upload/invoice          Upload and extract invoice data
-POST   /api/upload/invoice/create   Upload invoice and create warranty
-```
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/ai-chat` | Chat with AI assistant |
+| `POST` | `/api/upload/invoice/create` | Upload PDF and extract warranties |
 
 ### Health Check
 
-```
-GET    /health                      Check API and database status
-```
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/health` | Check API status |
 
-## 📝 Example API Usage
+---
+
+## Example API Usage
 
 ### Create a Warranty
 ```bash
-curl -X POST http://localhost:5000/api/warranties \
+curl -X POST http://localhost:3001/api/warranties \
   -H "Content-Type: application/json" \
   -d '{
     "product_name": "Industrial Air Compressor",
@@ -135,222 +246,232 @@ curl -X POST http://localhost:5000/api/warranties \
 
 ### Chat with AI
 ```bash
-curl -X POST http://localhost:5000/api/ai/chat \
+curl -X POST http://localhost:3001/api/ai-chat \
   -H "Content-Type: application/json" \
   -d '{
-    "message": "Which equipment warranties expire in the next 30 days?"
+    "message": "Which warranties expire in the next 30 days?"
   }'
 ```
 
 ### Get Analytics
 ```bash
-curl http://localhost:5000/api/warranties/analytics
+curl http://localhost:3001/api/analytics
 ```
 
-## 🗄️ Database Schema
-
-### warranties
-- id, product_name, category, serial_number
-- purchase_date, warranty_start, warranty_end
-- warranty_length_months, purchase_cost
-- supplier, status, claim_filed, claim_date
-- claim_amount, notes, location, department
-
-### alerts
-- id, warranty_id, alert_type, alert_date
-- sent, sent_at
-
-### ai_insights
-- id, warranty_id, insight_type
-- confidence_score, message, recommendation
-
-### chat_history
-- id, session_id, role, content
-
-## 🧪 Testing
-
-Test the API with the included sample data:
-
+### Upload PDF Invoice
 ```bash
-# Get all warranties
-curl http://localhost:5000/api/warranties
-
-# Get expiring soon
-curl http://localhost:5000/api/warranties/expiring/soon?days=30
-
-# Get analytics
-curl http://localhost:5000/api/warranties/analytics
+curl -X POST http://localhost:3001/api/upload/invoice/create \
+  -F "invoice=@/path/to/invoice.pdf"
 ```
-
-## 🔧 Troubleshooting
-
-### Database Connection Error
-```
-Error: connect ECONNREFUSED 127.0.0.1:5432
-```
-**Solution**: Make sure PostgreSQL is running
-```bash
-# On macOS
-brew services start postgresql
-
-# On Linux
-sudo systemctl start postgresql
-```
-
-### OpenAI API Error
-```
-Error: Invalid API key
-```
-**Solution**: Add valid OpenAI API key to `.env` file
-
-### Port Already in Use
-```
-Error: listen EADDRINUSE: address already in use :::5000
-```
-**Solution**: Change PORT in `.env` or kill process using port 5000
-
-## 📦 Project Structure
-
-```
-warrantywizard-backend/
-├── src/
-│   ├── config/
-│   │   ├── database.js      # Database connection
-│   │   └── schema.js        # Database schema
-│   ├── controllers/
-│   │   ├── warrantyController.js
-│   │   ├── aiController.js
-│   │   └── uploadController.js
-│   ├── models/
-│   │   ├── Warranty.js
-│   │   └── Alert.js
-│   ├── routes/
-│   │   ├── warrantyRoutes.js
-│   │   ├── aiRoutes.js
-│   │   └── uploadRoutes.js
-│   ├── services/
-│   │   └── AIService.js     # OpenAI integration
-│   ├── middleware/
-│   │   ├── upload.js
-│   │   └── errorHandler.js
-│   ├── utils/
-│   │   └── seed.js          # Database seeding
-│   └── server.js            # Main server file
-├── uploads/                  # Uploaded files
-├── .env                      # Environment variables
-├── .gitignore
-├── package.json
-└── README.md
-```
-
-
-## 📄 License
-
-MIT
-
-## 👥 Contributors
-
-Sailesh Senthilkumar, 
-Nathan Thokkudubiyyapu, 
-Jovani Trejo
 
 ---
 
-Track 3: Shop Savvy with Grainger
-=======
-# WarrantyWizard - AI-Powered Warranty Management System
+## Database Schema
 
-Never lose money on expired warranties again. Track, manage, and optimize your equipment warranties with AI-powered insights.
-
-## 🚀 Features
-
-- **📊 Dashboard** - Comprehensive overview of all warranties
-- **🔍 Equipment Database** - Search, filter, and manage warranties
-- **📅 Warranty Calendar** - Visual timeline of expirations
-- **🤖 AI Chat Assistant** - Natural language queries about warranties
-- **📤 Upload Orders** - CSV import or manual entry
-- **📈 Reports & Analytics** - Financial insights and statistics
-- **⚠️ Alerts** - Never miss an expiration
-- **⚙️ Settings** - Customize alerts and team management
-
-## 🛠️ Tech Stack
-
-- **Frontend**: React 19 + TypeScript + Vite
-- **Backend**: Node.js + Express + TypeScript
-- **Styling**: CSS3 with modern design
-
-## 📦 Installation
-
-### Prerequisites
-- Node.js 20.11+ 
-- npm or yarn
-
-### Setup
-
-1. **Install Backend Dependencies**
-```bash
-cd backend
-npm install
+### Warranties Table
+```sql
+CREATE TABLE warranties (
+  id SERIAL PRIMARY KEY,
+  product_name VARCHAR(255) NOT NULL,
+  category VARCHAR(100),
+  serial_number VARCHAR(100),
+  supplier VARCHAR(100),
+  purchase_date DATE NOT NULL,
+  warranty_start DATE NOT NULL,
+  warranty_end DATE NOT NULL,
+  warranty_length_months INTEGER,
+  purchase_cost DECIMAL(10, 2),
+  status VARCHAR(50), -- active, expiring_soon, expired
+  claim_filed BOOLEAN DEFAULT false,
+  claim_date DATE,
+  claim_amount DECIMAL(10, 2),
+  notes TEXT,
+  invoice_url TEXT,
+  created_at TIMESTAMP DEFAULT NOW()
+);
 ```
 
-2. **Install Frontend Dependencies**
-```bash
-cd frontend
-npm install
+### Alerts Table
+```sql
+CREATE TABLE alerts (
+  id SERIAL PRIMARY KEY,
+  warranty_id INTEGER REFERENCES warranties(id) ON DELETE CASCADE,
+  alert_type VARCHAR(50), -- 30_day, 7_day, expired
+  alert_date DATE NOT NULL,
+  sent BOOLEAN DEFAULT false,
+  created_at TIMESTAMP DEFAULT NOW()
+);
 ```
 
-3. **Start Backend Server**
-```bash
-cd backend
-npm run dev
+---
+
+## Project Structure
+
 ```
-Backend runs on `http://localhost:3001`
-
-4. **Start Frontend Server**
-```bash
-cd frontend
-npm run dev
+WarrantyWizard-main/
+├── backend/                 # Backend API (In-memory storage)
+│   ├── src/
+│   │   └── index.ts        # Main server file
+│   ├── .env                # Environment variables
+│   ├── package.json
+│   └── tsconfig.json
+│
+├── database/                # Alternative backend (PostgreSQL)
+│   ├── src/
+│   │   ├── server.js       # Database server
+│   │   ├── config/
+│   │   │   └── database.js # DB connection
+│   │   ├── controllers/    # Route controllers
+│   │   ├── models/         # Data models
+│   │   ├── routes/         # API routes
+│   │   └── services/
+│   │       └── AIService.js # OpenAI integration
+│   ├── .env
+│   └── package.json
+│
+├── frontend/                # React frontend
+│   ├── src/
+│   │   ├── components/     # React components
+│   │   │   ├── UploadModal.tsx
+│   │   │   ├── AnalyticsCharts.tsx
+│   │   │   └── PredictiveAnalytics.tsx
+│   │   ├── pages/          # Page components
+│   │   │   ├── Dashboard.tsx
+│   │   │   ├── EquipmentDatabase.tsx
+│   │   │   ├── WarrantyCalendar.tsx
+│   │   │   ├── AIChat.tsx
+│   │   │   ├── Reports.tsx
+│   │   │   └── Alerts.tsx
+│   │   ├── services/
+│   │   │   └── api.ts      # API client
+│   │   ├── router.tsx       # Routing
+│   │   └── main.tsx        # Entry point
+│   ├── vite.config.ts      # Vite configuration
+│   ├── package.json
+│   └── tsconfig.json
+│
+├── README.md               # This file
+├── DEMO_VIDEO_SCRIPT.md    # Demo presentation script
+└── QUICK_START.md          # Quick start guide
 ```
-Frontend runs on `http://localhost:5173`
 
-## 🌐 Deployment
+---
 
-### Build for Production
+## Usage Guide
 
-1. **Build Frontend**
+### Adding Warranties
+
+1. **Manual Entry:**
+   - Click "Upload Orders" in navigation
+   - Select "Manual Entry"
+   - Fill in warranty details
+   - Click "Add Warranty"
+
+2. **CSV Upload:**
+   - Click "Upload Orders"
+   - Select "CSV Upload"
+   - Upload CSV file with warranty data
+
+3. **PDF Invoice Upload:**
+   - Click "Upload Orders"
+   - Select "PDF Invoice"
+   - Upload PDF invoice
+   - AI automatically extracts warranty data
+   - Multiple warranties created from table data
+
+### Using AI Chat
+
+1. Navigate to "AI Chat" in the menu
+2. Type questions in plain English:
+   - "Which warranties expire this month?"
+   - "What's the total value of all active warranties?"
+   - "Which equipment has the highest risk?"
+3. Get instant, intelligent responses
+
+### Viewing Analytics
+
+1. Go to "Dashboard" for overview
+2. Navigate to "Reports" for detailed analytics:
+   - Total warranties and value
+   - Warranties by supplier
+   - Predictive analytics for at-risk items
+
+### Calendar View
+
+1. Click "Calendar" in navigation
+2. See visual timeline of warranty expirations
+3. Click on dates to see warranties expiring
+
+---
+
+## Deployment
+
+### Frontend Deployment (Vercel/Netlify)
+
+1. **Build the frontend:**
 ```bash
 cd frontend
 npm run build
 ```
 
-2. **Deploy**
-- Frontend: Deploy the `dist` folder to any static hosting (Vercel, Netlify, etc.)
-- Backend: Deploy to any Node.js hosting (Railway, Render, etc.)
+2. **Deploy to Vercel:**
+   - Connect GitHub repository
+   - Root directory: `frontend`
+   - Build command: `npm run build`
+   - Output directory: `dist`
 
-### Environment Variables
+3. **Update API URL:**
+   - Set environment variable: `VITE_API_URL=https://your-backend-url.com`
 
-**Backend** (`.env`):
-```
-PORT=3001
-```
+### Backend Deployment (Railway/Render)
 
-**Frontend**: Update `vite.config.ts` proxy target for production API URL.
+1. **Deploy to Railway:**
+   - Connect GitHub repository
+   - Root directory: `backend`
+   - Add environment variables from `.env`
+   - Deploy!
 
-## 📡 API Endpoints
+2. **Or deploy to Render:**
+   - New Web Service
+   - Connect GitHub repo
+   - Root directory: `backend`
+   - Build: `npm install`
+   - Start: `npm start`
 
-- `GET /api/warranties` - Get all warranties
-- `GET /api/warranties/expiring?days=30` - Get expiring warranties
-- `GET /api/analytics` - Get analytics
-- `POST /api/warranties` - Create warranty
-- `POST /api/ai-chat` - AI chat assistant
+### Database Setup (Production)
 
-## 🎯 Usage
+1. Set up PostgreSQL database (Railway, Render, or AWS RDS)
+2. Update `DATABASE_URL` in backend `.env`
+3. Run migrations/seeding if needed
 
-1. Open `http://localhost:5173` in your browser
-2. View the dashboard with warranty overview
-3. Navigate through different sections using the top menu
-4. Add warranties manually or upload CSV files
-5. Use AI chat to ask questions about warranties
-6. View calendar for visual timeline
-7. Check reports for analytics
+---
 
+### Sample Data
+
+The application comes pre-loaded with **12-13 sample warranties** including:
+- Active warranties
+- Expiring soon (next 30 days)
+- Expired warranties
+- Various categories (HVAC, Material Handling, Power Tools, etc.)
+
+---
+
+## Key Features Explained
+
+### AI-Powered PDF Extraction
+- Upload a PDF invoice
+- AI (GPT-4) extracts text and intelligently parses table data
+- Automatically creates multiple warranties (one per row)
+- Zero manual data entry required
+
+### Predictive Analytics
+- Calculates risk scores for each warranty
+- Identifies equipment likely to need service
+- Recommends proactive maintenance
+- Prevents warranty losses
+
+### Natural Language Chat
+- Ask questions in plain English
+- No SQL or technical knowledge needed
+- AI understands context and provides insights
+- Accessible to all users
